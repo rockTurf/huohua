@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <!-- Title and other stuffs -->
+  <title>登陆页面</title> 
+   <!-- JS -->
+  <script src="${ctxPath}/static/js/jquery-1.10.2.js"></script>
+  <script src="${ctxPath}/static/js/jquery.tips.js"></script>
+  <script src="${ctxPath}/static/js/bootstrap.js"></script>
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="${ctxPath}/static/style/bootstrap.css">
+ <!--  <link rel="stylesheet" href="${ctxPath}/static/style/font-awesome.css"> -->
+   <link rel="stylesheet" href="${ctxPath}/static/font-awesome-4.7.0/css/font-awesome.css">
+  <link rel="stylesheet" href="${ctxPath}/static/style/style.css">
+  <!-- HTML5 Support for IE -->
+  <!--[if lt IE 9]>
+  <script src="js/html5shim.js"></script>
+  <![endif]-->
+  <!-- Favicon -->
+</head>
+
+
+<body>
+
+<div class="admin-form">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <!-- Widget starts -->
+            <div class="widget wred">
+              <div class="widget-head">
+                <i class="fa fa-lock"></i> 注册
+              </div>
+              <div class="widget-content">
+                <div class="padd">
+                  
+                  <form class="form-horizontal">
+                    <!-- Registration form starts -->
+                         <div class="form-group">
+                           <label class="control-label col-lg-3" for="appcode">业务系统编号（英文拼写）</label>
+                           <div class="col-lg-9">
+                             <input type="text" class="form-control" datatype="*"  nullmsg="此项必填！" id="appcode">
+                           </div>
+                         </div>
+                          <div class="form-group">
+                           <label class="control-label col-lg-3" for="appname">业务系统名称（中文名称）</label>
+                           <div class="col-lg-9">
+                             <input type="text" class="form-control" datatype="*"  nullmsg="此项必填！" id="appname">
+                           </div>
+                         </div>      
+                         <!-- Email -->
+                         <div class="form-group">
+                           <label class="control-label col-lg-3" for="cburl">回调地址（可选）</label>
+                           <div class="col-lg-9">
+                             <input type="text" class="form-control" id="cburl">
+                           </div>
+                         </div>
+                         <!-- Accept box and button s-->
+                         <div class="form-group">
+                           <div class="col-lg-9 col-lg-offset-9">
+                             <button type="button" class="btn btn-danger" onclick="register()">提交</button>
+                           </div>
+                         </div>
+					  <br />
+                  </form>
+
+                </div>
+              </div>
+                <div class="widget-foot">
+                  	已经注册? <a href="${ctxPath}/login">登录</a>
+                </div>
+            </div>  
+      </div>
+    </div>
+  </div> 
+</div>
+	
+</body>
+<script type="text/javascript">
+//服务器校验
+function register(){
+	if(check()){
+		appcode = $('#appcode').val();
+		appname = $('#appname').val();
+		cburl = $('#cburl').val();
+		$.ajax({
+			//async:false,
+			type: "POST",
+			url: '${ctxPath}/userCenter/userRegist',
+	    	data: {
+	    		appcode:appcode,
+	    		appname:appname,
+	    		cburl:cburl
+	    	},
+			dataType:'json',
+			cache: true,
+			success: function(data){ 
+				if(undefined != data.error){
+						$t = $("#appcode");
+						if(data.error.indexOf('用户名已存在')!=-1){
+							$t =$("#appcode");
+						}
+						$t.tips({
+							side : 2,
+							msg : data.error,
+							bg : '#4F4F4F',
+							time : 3
+						});
+						$t.focus();
+				 }else{ 
+				 	 alert(data.success);
+					 window.location.href = "${ctxPath!}/index";
+				 }
+			}
+		});
+	}
+}
+
+//客户端校验
+function check() {
+	if ($("#name").val() == "") {
+		$("#name").tips({
+			side : 2,
+			msg : '姓名不得为空',
+			bg : '#4F4F4F',
+			time : 3
+		});
+		$("#name").focus();
+		return false;
+	}else {
+		$("#name").val(jQuery.trim($('#name').val()));
+	}
+	if ($("#email").val() == "") {
+		$("#email").tips({
+			side : 2,
+			msg : '邮箱不得为空',
+			bg : '#4F4F4F',
+			time : 3
+		});
+
+		$("#email").focus();
+		return false;
+	}
+	if ($("#username").val() == "") {
+		$("#username").tips({
+			side : 2,
+			msg : '用户名不得为空',
+			bg : '#4F4F4F',
+			time : 3
+		});
+
+		$("#username").focus();
+		return false;
+	}
+	if ($("#password").val() == "") {
+		$("#password").tips({
+			side : 2,
+			msg : '密码不得为空',
+			bg : '#4F4F4F',
+			time : 3
+		});
+
+		$("#password").focus();
+		return false;
+	}
+	if ($("#confirm").val() == ""||$("#confirm").val()!=$("#password").val()) {
+		$("#confirm").tips({
+			side : 2,
+			msg : '确认密码错误',
+			bg : '#4F4F4F',
+			time : 3
+		});
+
+		$("#confirm").focus();
+		return false;
+	}
+	return true;
+}
+</script>
+</html>
