@@ -14,6 +14,7 @@
 			<tr>
 				<th>地址</th>
 				<th>公链码</th>
+				<th>用户编码</th>
 				<th>操作</th>
 			</tr>
 		</thead>
@@ -22,9 +23,10 @@
 			<tr>
 				<td>${item.addr!}</td>
 				<td>${item.chainCode!}</td>
+				<td>${item.userId!}</td>
 				<td>
-				<button class="btn btn-xs btn-warning" data-mode="page" data-title="编辑"
-							data-url="${ctxPath}/userRole/detail"
+				<button class="btn btn-xs btn-warning" data-mode="page" data-title="修改查询密码"
+							data-url="${ctxPath}/accountWallet/updateSelectPwd"
 							data-data="{id:'${item.id}'}" data-height="85%" data-width="60%">
 				<i class="fa fa-pencil"></i>
 				</button>

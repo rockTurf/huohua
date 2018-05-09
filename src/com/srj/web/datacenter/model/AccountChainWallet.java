@@ -2,6 +2,8 @@ package com.srj.web.datacenter.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Transient;
+
 import com.srj.common.base.BaseEntity;
 
 public class AccountChainWallet extends BaseEntity implements Serializable{
@@ -13,6 +15,12 @@ public class AccountChainWallet extends BaseEntity implements Serializable{
 	private String addr;
 	private String chain_code;
 	private Long account_wallet_id;
+	
+	@Transient
+	private String user_id;
+	@Transient
+	private String wallet_addr;
+	
 	public String getAddr() {
 		return this.getString("addr");
 	}
@@ -35,5 +43,12 @@ public class AccountChainWallet extends BaseEntity implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	public String getUser_id() {
+		return this.getString("userId");
+	}
+	public String getWallet_addr() {
+		return this.getString("walletAddr");
+	}
+	
 	
 }

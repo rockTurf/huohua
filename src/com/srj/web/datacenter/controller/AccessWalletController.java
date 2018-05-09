@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.srj.common.utils.SysUserUtil;
+import com.srj.web.datacenter.model.AccountChainWallet;
 import com.srj.web.datacenter.model.ChainWallet;
 import com.srj.web.datacenter.service.AccountWalletService;
 import com.srj.web.sys.model.SysUser;
@@ -56,6 +57,7 @@ public class AccessWalletController {
 		SysUser u = (SysUser)SysUserUtil.getSessionLoginUser();
 		//封装
 		params.put("accessToken",accessToken);
+		params.put("appid", u.getAppid());
 		int count = accountWalletService.addAccountwallet(params);
 		return count;
 	}
@@ -69,8 +71,26 @@ public class AccessWalletController {
 	 */
 	@RequestMapping(value = "list", method = RequestMethod.POST)
 	public String list(@RequestParam Map<String, Object> params, Model model) {
-		PageInfo<ChainWallet> list = accountWalletService.findPageInfo(params);
-		return null;
+		//取得session中用户
+		SysUser u = (SysUser)SysUserUtil.getSessionLoginUser();
+		params.put("appid", u.getAppid());
+		PageInfo<AccountChainWallet> page = accountWalletService.findPageInfo(params);
+		model.addAttribute("page", page);
+		return "datacenter/accountWallet/account-wallet-list";
+	}
+	
+	/**
+	 * 跳转修改查询密码页面
+	 * 
+	 * @param params
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "updateSelectPwd", method = RequestMethod.POST)
+	public String showDetail(Long id,@RequestParam Map<String, Object> params,Model model){
+		AccountChainWallet acw = accountWalletService.getItem(id);
+		model.addAttribute("detail", acw);
+		return "datacenter/accountWallet/account-wallet-update-select-pwd";
 	}
 	
 

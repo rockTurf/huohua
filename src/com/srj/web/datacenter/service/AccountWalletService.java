@@ -10,6 +10,7 @@ import net.sf.json.JSONObject;
 
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.srj.web.datacenter.mapper.AccountChainWalletMapper;
 import com.srj.web.datacenter.mapper.AccountWalletMapper;
@@ -43,9 +44,10 @@ public class AccountWalletService {
 			AccountWallet aw = new AccountWallet();
 			aw.setUser_id(data.getString("userId"));
 			aw.setWallet_addr(data.getString("walletAddr"));
+			aw.setAppid((String)params.get("appid"));
 			accountWalletMapper.insertSelective(aw);
 			//取得子钱包集合
-			JSONArray chainWalletArray = data.getJSONArray("chainWallets");
+			JSONArray chainWalletArray = data.getJSONArray("phyWalletList");
 			//遍历子钱包，插库
 			if(chainWalletArray.size()>0){  
 				for(int i=0;i<chainWalletArray.size();i++){  
@@ -63,9 +65,15 @@ public class AccountWalletService {
 	}
 
 	//查询列表
-	public PageInfo<ChainWallet> findPageInfo(Map<String, Object> params) {
-		// TODO Auto-generated method stub
-		return null;
+	public PageInfo<AccountChainWallet> findPageInfo(Map<String, Object> params) {
+		PageHelper.startPage(params);
+		List<AccountChainWallet> list = accountChainWalletMapper.findPageInfo(params);
+		return new PageInfo<AccountChainWallet>(list);
+	}
+
+	//钱包详情
+	public AccountChainWallet getItem(Long id) {
+		return accountChainWalletMapper.getItem(id);
 	}
 
 }

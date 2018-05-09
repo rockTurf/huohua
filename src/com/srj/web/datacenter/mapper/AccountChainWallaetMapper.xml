@@ -2,7 +2,38 @@
 		<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 		<mapper namespace="com.srj.web.datacenter.mapper.AccountChainWalletMapper">
 
+	<!--查询用户列表-->
+	<select id="findPageInfo" resultType="com.srj.web.datacenter.model.AccountChainWallet">
+		SELECT
+			a.id,
+			a.addr,
+			a.chain_code,
+			b.user_id
+		FROM
+			account_chain_wallet a
+		LEFT JOIN account_wallet b ON a.account_wallet_id = b.id
+		<where>
+			b.appid = '${appid}'
+			<if test="@Ognl@isNotBlank(user_id)">
+		 	and b.user_id like concat('%',#{user_id} ,'%')
+		    </if>
+		</where>
+		GROUP BY a.id 
+		ORDER BY a.id DESC
+	</select>
 
-
+	<!-- 查询钱包详情 -->
+	<select id="getItem" resultType="com.srj.web.datacenter.model.AccountChainWallet">
+		SELECT
+			a.id,
+			a.addr,
+			a.chain_code,
+			b.user_id,
+			b.wallet_addr
+		FROM
+			account_chain_wallet a
+		LEFT JOIN account_wallet b ON a.account_wallet_id = b.id
+		where a.id = #{id}
+	</select>
 		
 </mapper>
