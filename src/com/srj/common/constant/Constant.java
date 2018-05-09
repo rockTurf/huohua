@@ -33,6 +33,7 @@ public class Constant {
 
 	// 用户
 	public static final String SESSION_LOGIN_USER = "loginUser"; // session中的用户key
+	public static final String SESSION_ACCCESS_TOKEN = "session_access_token"; // session中的用户key
 	public static final Long SUPER_ADMIN = 1L; // 超级管理员ID
 
 	// 缓存key
@@ -47,6 +48,8 @@ public class Constant {
 	public static final String CACHE_USER_ROLE = "userRole"; // 用户角色
 	public static final String CACHE_USER_DATASCOPE = "userDataScope"; //用户数据范围
 	public static final String CACHE_USER_OFFICE = "userOffice"; //用户机构
+	
+	
 
 	// 显示/隐藏
 	public static final String SHOW = "1";

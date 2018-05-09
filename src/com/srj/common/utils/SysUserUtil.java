@@ -40,6 +40,14 @@ public class SysUserUtil {
 		getSession().setAttribute(Constant.SESSION_LOGIN_USER, loginUser);
 	}
 	
+	//把token塞入session
+	public static void setSessionToken(String token){
+		getSession().setAttribute(Constant.SESSION_ACCCESS_TOKEN, token);
+	}
+	//获得token
+	public static String getAccessToken(){
+		return (String) getSession().getAttribute(Constant.SESSION_ACCCESS_TOKEN);
+	}
 	
 	
 	
@@ -110,12 +118,11 @@ public class SysUserUtil {
 		return userMenus;
 	}
 
-	/**
-	 * 登录用户按钮
-	 */
+	//判断用户是否有权限
 	public static Map<String, SysResource> getUserButton() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	
 }

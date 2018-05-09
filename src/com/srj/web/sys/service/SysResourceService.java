@@ -43,9 +43,9 @@ public class SysResourceService {
 		Map<String,Object> params = new HashMap<String,Object>();
 		params.put("type", Constant.RESOURCE_TYPE_MENU);
 		List<SysResource> reslist = new ArrayList<SysResource>();
-		
-			params.put("userId", sysUser.getId());
-			reslist = sysResourceMapper.findUserResourceByUserId(params);
+		reslist = sysResourceMapper.getAllResource(params);
+			/*params.put("userId", sysUser.getId());
+			reslist = sysResourceMapper.findUserResourceByUserId(params);*/
 		
 		return reslist;
 	}

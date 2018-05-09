@@ -7,4 +7,9 @@
 		where appcode = '${appcode}' and del_flag = '0'
 	</select>
 	
+	<select id="AccessLogin" resultType="com.srj.web.sys.model.SysUser">
+	select id,appcode,appname,appid from sys_user 
+		where appid = '${appid}' and appsecret = '${appsecret}' and del_flag = '0'
+	</select>
+	
 </mapper>

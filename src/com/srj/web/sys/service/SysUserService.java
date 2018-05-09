@@ -18,21 +18,18 @@ public class SysUserService {
 	@Autowired
 	public SysUserMapper sysUserMapper;
 	
+	//查看是否有该用户
 	public SysUser CheckUser(Map<String, Object> params){
 		SysUser sysuser = sysUserMapper.CheckSysUser(params);
 		return sysuser;
 	}
-
-	//校验密码
-	public boolean CheckPassword(Map<String, Object> params) {
-		boolean b = false;
-		params.put("password", PasswordEncoder.Encoding((String)params.get("loginPwd"), (String)params.get("loginName")));
-		Long l = sysUserMapper.CheckPassword(params);
-		if(l!=null){
-			b=true;
-		}
-		return b;
+	//校验用户id和秘钥
+	public SysUser AccessLogin(Map<String, Object> params){
+		SysUser sysuser = sysUserMapper.AccessLogin(params);
+		return sysuser;
 	}
+
+	
 
 	//显示用户列表
 	public PageInfo<SysUser> findPageInfo(Map<String, Object> params) {
@@ -42,16 +39,8 @@ public class SysUserService {
 	}
 
 	//增加用户
-	public int addUser(Map<String, Object> params) {
-		SysUser u = new SysUser();
-		/*u.setName((String) params.get("name"));
-		u.setEmail((String) params.get("email"));
-		u.setUsername((String) params.get("loginName"));
-		u.setPassword((String) params.get("password"));
-		u.setPhone((String) params.get("phone"));
-		u.setDelFlag(Constant.DEL_FLAG_NORMAL);*/
-		int count = sysUserMapper.insertSelective(u);
-		return count;
+	public int addUser(SysUser u) {
+		return sysUserMapper.insertSelective(u);
 	}
 
 }

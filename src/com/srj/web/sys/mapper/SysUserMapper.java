@@ -12,7 +12,7 @@ public interface SysUserMapper extends Mapper<SysUser>{
 	
 	public SysUser CheckSysUser(Map<String,Object> map);
 
-	public Long CheckPassword(Map<String, Object> params);
+	public SysUser AccessLogin(Map<String,Object> map);
 
 	public List<SysUser> findPageInfo(Map<String, Object> params);
 	

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+		<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		<mapper namespace="com.srj.web.datacenter.mapper.ChainWalletMapper">
+
+	<!--查询用户列表-->
+	<select id="findPageInfo" resultType="com.srj.web.datacenter.model.ChainWallet">
+		SELECT
+			a.id,
+			a.addr,
+			a.chain_code,
+			b.addr AS wallet_addr
+		FROM
+			chain_wallet a
+		LEFT JOIN wallet b ON a.wallet_id = b.id
+		<where>
+			b.user_code = '${appid}'
+		</where>
+		ORDER BY
+			a.id DESC
+	</select>
+
+
+
+		
+</mapper>

@@ -78,14 +78,28 @@ public class UserCenterController {
 		//数据库取到对应的用户信息不为空 判断
 		if(user==null){
 			//调用注册接口
-			JSONObject obj = HualianUtil.getInit(params);
-			System.out.println("data="+obj);
-			/*int count = sysUserService.addUser(params);
-			if(count>0){
-				msg.put("success", "注册成功！");
+			JSONObject data = HualianUtil.getInit(params);
+			if(200==(data.getInt("code"))){//返回200代表成功
+				data = (JSONObject) data.get("data");
+				//存入库
+				SysUser u = new SysUser();
+				u.setAppcode((String) params.get("appcode"));
+				u.setAppname((String) params.get("appname"));
+				u.setCburl((String) params.get("cburl"));
+				u.setAppid(data.optString("appid"));
+				u.setAppsecret(data.getString("appsecret"));
+				u.setDelFlag(Constant.DEL_FLAG_NORMAL);
+				int count = sysUserService.addUser(u);
+				if(count>0){
+					msg.put("appid", data.optString("appid"));
+					msg.put("appsecret", data.getString("appsecret"));
+					msg.put("success", "注册成功！");
+				}else{
+					msg.put("error", "未知错误！");
+				}
 			}else{
-				msg.put("error", "未知错误！");
-			}*/
+				msg.put("error", data.get("message"));
+			}
 		}else{
 			msg.put("error", "用户名已存在！");
 		}
@@ -97,14 +111,14 @@ public class UserCenterController {
 	 * @param params
 	 * @param model
 	 * @return
-	 */
+	 *//*
 	@RequestMapping(value = "/save")
 	public @ResponseBody Integer userSave(@RequestParam Map<String,Object> params,Model model,HttpServletRequest request,HttpServletResponse response){
 		Map<String, Object> msg = new HashMap<String, Object>();
 		int count = sysUserService.addUser(params);
 		return count;
 	}
-	
+	*/
 	/**
 	 * 检验用户名
 	 * 

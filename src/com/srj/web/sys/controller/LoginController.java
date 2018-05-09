@@ -7,6 +7,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.srj.common.utils.SysConstant;
 import com.srj.common.utils.SysUserUtil;
 import com.srj.common.constant.Constant;
 import com.srj.web.sys.model.SysUser;
 import com.srj.web.sys.service.SysResourceService;
 import com.srj.web.sys.service.SysUserService;
+import com.srj.web.util.HualianUtil;
 
 /**
  * @登陆页
@@ -52,28 +56,23 @@ public class LoginController {
 	
 	@RequestMapping(value = "/loginCheck")
 	public @ResponseBody Map<String, Object> checkLogin(@RequestParam Map<String,Object> params,Model model,HttpServletRequest request,HttpServletResponse response){
-		String remPwd = params.get("remPwd").toString();
+		String appid = params.get("appid").toString();
+		String appsecret = params.get("appsecret").toString();
 		Map<String, Object> msg = new HashMap<String, Object>();
-		SysUser user= sysUserService.CheckUser(params);
+		SysUser user= sysUserService.AccessLogin(params);
 		//数据库取到对应的用户信息不为空 判断
 		if(user!=null){
-			//校验密码 b=true为密码匹配
-			params.put("userId", user.getId());
-			boolean b = sysUserService.CheckPassword(params);
-			if(b){//校验通过
+			//调用校验接口
+			JSONObject data = HualianUtil.getAccess(params);
+			if(200==(data.getInt("code"))){//返回200代表成功
+				data = (JSONObject) data.get("data");
+				String token = data.getString("accessToken");
+				SysUserUtil.setSessionToken(token);
 				msg.put("success", "登录成功！");
 				//将用户信息 存储到session中;
 				SysUserUtil.setSessionLoginUser(user);
-				//判断是否是是否点击了记住密码   
-				if("yes".equals(remPwd)){
-					 response.addCookie(new Cookie(Constant.SET_COOKIE_USERNAME,(String)params.get("loginName")));
-					 response.addCookie(new Cookie(Constant.SET_COOKIE_PASSWORD,(String)params.get("loginPwd")));
-				}else{
-					response.addCookie(new Cookie(Constant.SET_COOKIE_USERNAME,""));
-					response.addCookie(new Cookie(Constant.SET_COOKIE_PASSWORD,""));
-				}
-			}else{//校验不通过
-				msg.put("error", "密码错误！");
+			}else{
+				msg.put("error", data.get("message"));
 			}
 		}else{
 			msg.put("error", "找不到用户！");
@@ -87,20 +86,7 @@ public class LoginController {
 		if (SysUserUtil.getSessionLoginUser() != null) {
 			return "redirect:/index";
 		}
-		String userName = "";
-		String passWord = "";
-		Cookie[] cookies = request.getCookies();
-		if(cookies!=null ){
-			for(int i = 0 ; i < cookies.length; i++){
-				if(cookies[i].getName().equals(Constant.SET_COOKIE_USERNAME)){
-					userName= cookies[i].getValue();
-				}else if(cookies[i].getName().equals(Constant.SET_COOKIE_PASSWORD)){
-					passWord = cookies[i].getValue();
-				}
-			}
-		}
-		model.addAttribute(Constant.SET_COOKIE_USERNAME,userName);
-		model.addAttribute(Constant.SET_COOKIE_PASSWORD,passWord);
+		
 		return "login";
 	}
 	

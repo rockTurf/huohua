@@ -42,28 +42,19 @@
                   <form class="form-horizontal">
                     <!-- Email -->
                     <div class="form-group">
-                      <label class="control-label col-lg-3" for="inputEmail">用户名</label>
+                      <label class="control-label col-lg-3" for="appid">应用id</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control" id="inputUserName" value="${CookieRemUserName}" placeholder="请输入用户名">
+                        <input type="text" class="form-control" id="appid" placeholder="请输入应用id">
                       </div>
                     </div>
                     <!-- Password -->
                     <div class="form-group">
-                      <label class="control-label col-lg-3" for="inputPassword">密码</label>
+                      <label class="control-label col-lg-3" for="appsecret">秘钥</label>
                       <div class="col-lg-9">
-                        <input type="password" class="form-control" id="inputPassword" value="${CookieRemUserPwd}" placeholder="请输入密码">
+                        <input type="password" class="form-control" id="appsecret" placeholder="请输入秘钥">
                       </div>
                     </div>
                     <!-- Remember me checkbox and sign in button -->
-                    <div class="form-group">
-					<div class="col-lg-9 col-lg-offset-3">
-                      <div class="checkbox">
-                        <label>
-                          <input id="remember" type="checkbox"> 记住密码
-                        </label>
-						</div>
-					</div>
-					</div>
                         <div class="col-lg-9 col-lg-offset-2">
 							<button type="button" class="btn btn-danger" onclick="severCheck();">登陆</button>
 							<button type="reset" class="btn btn-default">重置</button>
@@ -83,7 +74,7 @@
 </body>
 <script type="text/javascript">
 $(function(){
-	$("#inputUserName,#inputPassword").keydown(function(e){
+	$("#appid,#appsecret").keydown(function(e){
 		if(e.keyCode==13){
 			severCheck();
 		}
@@ -92,29 +83,22 @@ $(function(){
 //服务器校验
 function severCheck(){
 	if(check()){
-		loginName = $('#inputUserName').val();
-		loginPwd = $('#inputPassword').val();
+		appid = $('#appid').val();
+		appsecret = $('#appsecret').val();
 		var remPwd = "no";
-		if($("#remember").prop("checked")){//记住密码
-			remPwd = "yes";
-		}
 		$.ajax({
 			//async:false,
 			type: "POST",
 			url: '${ctxPath}/loginCheck',
 	    	data: {
-	    		loginName:loginName,
-	    		loginPwd:loginPwd,
-	    		remPwd:remPwd	
+	    		appid:appid,
+	    		appsecret:appsecret,
 	    	},
 			dataType:'json',
 			cache: true,
 			success: function(data){ 
 				 if(undefined != data.error){
-						$t = $("#inputUserName");
-						if(data.error.indexOf('密码错误')!=-1){
-							$t =$("#inputPassword");
-						}
+						$t = $("#appid");
 						$t.tips({
 							side : 2,
 							msg : data.error,
@@ -122,7 +106,8 @@ function severCheck(){
 							time : 3
 						});
 						$t.focus();
-				 }else{ 
+				 }else{
+				 	 alert("登录成功！"); 
 					 window.location.href = "${ctxPath!}/index";
 				 }
 			}
