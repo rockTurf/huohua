@@ -12,7 +12,8 @@
 	<table class="table table-striped table-bordered table-hover">
 		<thead>
 			<tr>
-				<th>钱包地址</th>
+				<th>地址</th>
+				<th>公链码</th>
 				<th>用户编码</th>
 				<th>操作</th>
 			</tr>
@@ -20,11 +21,17 @@
 		@for(item in page.list){
 		<tbody>
 			<tr>
-				<td>${item.walletAddr!}</td>
+				<td>${item.addr!}</td>
+				<td>${item.chainCode!}</td>
 				<td>${item.userId!}</td>
 				<td>
-				<button class="btn btn-xs btn-warning" data-mode="page" data-title="操作"
-							data-url="${ctxPath}/accountWallet/detail"
+				<button class="btn btn-xs btn-warning" data-mode="page" data-title="修改查询密码"
+							data-url="${ctxPath}/accountWallet/updateSelectPwdPage"
+							data-data="{id:'${item.id}'}" data-height="85%" data-width="60%">
+				<i class="fa fa-pencil"></i>
+				</button>
+				<button class="btn btn-xs btn-danger" data-mode="page" data-title="重置查询密码"
+							data-url="${ctxPath}/accountWallet/resetSelectPwdPage"
 							data-data="{id:'${item.id}'}" data-height="85%" data-width="60%">
 				<i class="fa fa-pencil"></i>
 				</button>

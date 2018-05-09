@@ -9,6 +9,7 @@
   <script src="${ctxPath}/static/js/jquery-1.10.2.js"></script>
   <script src="${ctxPath}/static/js/jquery.tips.js"></script>
   <script src="${ctxPath}/static/js/bootstrap.js"></script>
+  
   <!-- Stylesheets -->
   <link rel="stylesheet" href="${ctxPath}/static/style/bootstrap.css">
  <!--  <link rel="stylesheet" href="${ctxPath}/static/style/font-awesome.css"> -->
@@ -85,7 +86,6 @@ function severCheck(){
 	if(check()){
 		appid = $('#appid').val();
 		appsecret = $('#appsecret').val();
-		var remPwd = "no";
 		$.ajax({
 			//async:false,
 			type: "POST",
@@ -95,7 +95,6 @@ function severCheck(){
 	    		appsecret:appsecret,
 	    	},
 			dataType:'json',
-			cache: true,
 			success: function(data){ 
 				 if(undefined != data.error){
 						$t = $("#appid");
@@ -107,7 +106,7 @@ function severCheck(){
 						});
 						$t.focus();
 				 }else{
-				 	 alert("登录成功！"); 
+				 	alert("登录成功！")
 					 window.location.href = "${ctxPath!}/index";
 				 }
 			}

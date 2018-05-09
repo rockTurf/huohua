@@ -1,11 +1,14 @@
 package com.srj.web.datacenter.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import net.sf.json.JSONObject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,12 +20,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageInfo;
 import com.srj.common.utils.SysUserUtil;
 import com.srj.web.datacenter.model.AccountChainWallet;
+import com.srj.web.datacenter.model.AccountWallet;
 import com.srj.web.datacenter.model.ChainWallet;
 import com.srj.web.datacenter.service.AccountWalletService;
+import com.srj.web.sys.model.SysRole;
 import com.srj.web.sys.model.SysUser;
 /*
  * 用户钱包控制层
  * */
+import com.srj.web.util.HualianUtil;
 
 @Controller
 @RequestMapping("accountWallet")
@@ -74,24 +80,26 @@ public class AccessWalletController {
 		//取得session中用户
 		SysUser u = (SysUser)SysUserUtil.getSessionLoginUser();
 		params.put("appid", u.getAppid());
-		PageInfo<AccountChainWallet> page = accountWalletService.findPageInfo(params);
+		PageInfo<AccountWallet> page = accountWalletService.findPageInfo(params);
 		model.addAttribute("page", page);
 		return "datacenter/accountWallet/account-wallet-list";
 	}
 	
 	/**
-	 * 跳转修改查询密码页面
+	 * 跳转详情页
 	 * 
 	 * @param params
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "updateSelectPwd", method = RequestMethod.POST)
+	@RequestMapping(value = "detail", method = RequestMethod.POST)
 	public String showDetail(Long id,@RequestParam Map<String, Object> params,Model model){
-		AccountChainWallet acw = accountWalletService.getItem(id);
-		model.addAttribute("detail", acw);
-		return "datacenter/accountWallet/account-wallet-update-select-pwd";
+		SysUser u = SysUserUtil.getSessionLoginUser();
+		AccountWallet item = accountWalletService.getById(id);
+		model.addAttribute("item", item);
+		return "datacenter/accountWallet/account-wallet-detail";
 	}
+	
 	
 
 }

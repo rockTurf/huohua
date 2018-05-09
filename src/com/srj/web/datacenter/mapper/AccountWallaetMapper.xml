@@ -2,6 +2,16 @@
 		<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 		<mapper namespace="com.srj.web.datacenter.mapper.AccountWalletMapper">
 
+	<select id="findPageInfo" resultType="com.srj.web.datacenter.model.AccountWallet">
+		select id,wallet_addr,user_id,appid from account_wallet
+		<where>
+			appid = '${appid}'
+			<if test="@Ognl@isNotBlank(user_id)">
+		 	and user_id like concat('%',#{user_id} ,'%')
+		    </if>
+		</where>
+	</select>
+
 
 		
 </mapper>

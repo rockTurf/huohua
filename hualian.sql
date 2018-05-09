@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
+Source Server         : mysql
 Source Server Version : 50634
 Source Host           : localhost:3306
 Source Database       : hualian
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50634
 File Encoding         : 65001
 
-Date: 2018-05-09 17:57:16
+Date: 2018-05-10 00:06:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -42,7 +42,8 @@ CREATE TABLE `account_wallet` (
   `wallet_addr` varchar(80) NOT NULL,
   `user_id` varchar(80) NOT NULL,
   `appid` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `userId` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -103,7 +104,7 @@ CREATE TABLE `sys_resource` (
   `url` varchar(255) DEFAULT NULL COMMENT '链接',
   `del_flag` smallint(1) NOT NULL DEFAULT '0' COMMENT '描述',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_resource
@@ -116,6 +117,7 @@ INSERT INTO `sys_resource` VALUES ('6', '角色管理', null, '2', '0', 'userRol
 INSERT INTO `sys_resource` VALUES ('7', '钱包管理', 'gear', '0', '0', '', '0');
 INSERT INTO `sys_resource` VALUES ('8', '企业钱包', '', '7', '0', 'wallet', '0');
 INSERT INTO `sys_resource` VALUES ('9', '用户钱包', null, '7', '0', 'accountWallet', '0');
+INSERT INTO `sys_resource` VALUES ('10', '用户公链钱包', null, '7', '0', 'accountChainWallet', '0');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -166,7 +168,7 @@ CREATE TABLE `sys_user` (
   `appsecret` varchar(50) NOT NULL,
   `del_flag` smallint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_user
@@ -176,6 +178,9 @@ INSERT INTO `sys_user` VALUES ('2', 'newhuohualink', '新测试srj', '', '993645
 INSERT INTO `sys_user` VALUES ('3', 'newhuohualink2', '新火花测试2', '', '993648659088277504', 'e3b5b616-248e-49d6-8471-485e83284471', '0');
 INSERT INTO `sys_user` VALUES ('4', 'huohuatest3', '火花测试3', '', '993810746548682752', '2f504a44-91d2-4122-a6f0-b9b0c93c6a9e', '0');
 INSERT INTO `sys_user` VALUES ('5', 'huohuaceshi4', '火花测试4', '', '993814533992611840', '080c5b83-3988-4a7b-8685-9645df6258d1', '0');
+INSERT INTO `sys_user` VALUES ('6', 'hualianceshi5', '火花测试5', '', '994241218256830464', '4242d640-c16a-49c4-91e3-d022cc37dd8d', '0');
+INSERT INTO `sys_user` VALUES ('7', 'huohuaceshi6', '火花测试6', '', '994242373624004608', '8adb227a-e79f-4bf3-af9c-17068e374653', '0');
+INSERT INTO `sys_user` VALUES ('8', 'huohuaceshi7', '火花测试7', '', '994243083598036992', '3bc14f54-004a-422b-86f6-eee4fd4a50b9', '0');
 
 -- ----------------------------
 -- Table structure for sys_user_role

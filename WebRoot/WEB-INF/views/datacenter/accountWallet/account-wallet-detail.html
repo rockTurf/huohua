@@ -1,0 +1,74 @@
+
+<div class="widget wgreen">
+	<div class="widget-content">
+			<div class="padd">
+			
+			 <form class="form-horizontal" role="form">
+				 <div class="form-group">
+		           <label class="col-lg-4 control-label">钱包地址:</label>
+		           <div class="col-lg-8">
+		             <input type="text" class="form-control" id="wallet_addr" value="${item.walletAddr}" readonly="readonly">
+		           </div>
+		         </div>
+	         
+		         <div class="form-group">
+		           <label class="col-lg-4 control-label">用户id:</label>
+		           <div class="col-lg-8">
+		             <input type="text" class="form-control" id="user_id" value="${item.userId}" readonly="readonly">
+		           </div>
+		         </div>
+				<div>
+			</form>
+				<div class="form-group">
+					<label class="col-lg-4 control-label">旧密码</label>
+					<div class="col-lg-8">
+						<input type="text" id="oldPassword" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-4 control-label">新密码</label>
+					<div class="col-lg-8">
+						<input type="text" id="newPassword" class="form-control">
+					</div>
+				</div>
+				<div>
+				<input type="button" onclick="updateSelPwd()" value="修改查询密码" class="button button-glow button-rounded button-highlight">
+				<input type="button" onclick="updateSelPwd()" value="重置查询密码" class="button button-glow button-rounded button-caution">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	function updateSelPwd(){
+		$.confirm({
+			title : '提示!',
+			content : '确认修改密码吗？',
+			buttons : {
+				确认 : function() {
+					var oldPassword = $('#oldPassword').val();
+					var newPassword = $('#newPassword').val();
+					var userId = $('#user_id').val();
+					$.ajax({
+						//async:false,
+						type : "POST",
+						url : '${ctxPath}/accountChainWallet/updateSelPwd',
+						data : {
+							oldPassword : oldPassword,
+							newPassword : newPassword,
+							userId : userId
+						},
+						dataType : 'json',
+						success : function(data) {
+							alert(data.msg)
+						}
+					});
+				},
+				取消 : function() {
+
+				}
+			}
+		});
+	}
+</script>
+

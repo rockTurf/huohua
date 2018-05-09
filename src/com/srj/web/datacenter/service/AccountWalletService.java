@@ -14,12 +14,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.srj.web.datacenter.mapper.AccountChainWalletMapper;
 import com.srj.web.datacenter.mapper.AccountWalletMapper;
-import com.srj.web.datacenter.mapper.ChainWalletMapper;
-import com.srj.web.datacenter.mapper.WalletMapper;
 import com.srj.web.datacenter.model.AccountChainWallet;
 import com.srj.web.datacenter.model.AccountWallet;
 import com.srj.web.datacenter.model.ChainWallet;
-import com.srj.web.datacenter.model.Wallet;
 import com.srj.web.sys.model.SysUser;
 import com.srj.web.util.HualianUtil;
 
@@ -64,16 +61,18 @@ public class AccountWalletService {
 		return count;
 	}
 
-	//查询列表
-	public PageInfo<AccountChainWallet> findPageInfo(Map<String, Object> params) {
+	//列表显示用户钱包
+	public PageInfo<AccountWallet> findPageInfo(Map<String, Object> params) {
 		PageHelper.startPage(params);
-		List<AccountChainWallet> list = accountChainWalletMapper.findPageInfo(params);
-		return new PageInfo<AccountChainWallet>(list);
+		List<AccountWallet> list = accountWalletMapper.findPageInfo(params);
+		return new PageInfo<AccountWallet>(list);
 	}
 
-	//钱包详情
-	public AccountChainWallet getItem(Long id) {
-		return accountChainWalletMapper.getItem(id);
+	//查询单条记录
+	public AccountWallet getById(Long id) {
+		return accountWalletMapper.selectByPrimaryKey(id);
 	}
+
+
 
 }

@@ -1,0 +1,63 @@
+
+<div class="widget wgreen">
+	<div class="widget-content">
+		<div class="padd">
+			<table class="table table-striped table-bordered table-hover nomargin-bottom" style="border-collapse:separate; border-spacing:10px;width: 95%">
+			<tr>
+				<td>公链钱包地址:</td>
+				<td>${detail.addr}</td>
+			</tr>
+			<tr>
+				<td>公链编码:</td>
+				<td>${detail.chainCode} </td>
+			</tr>
+			<tr>
+				<td>用户钱包地址:</td>
+				<td>${detail.walletAddr}</td>
+			</tr>
+			<tr>
+				<td>用户id:</td>
+				<td>${detail.userId} </td>
+			</tr>
+		</table>
+		<div>
+			<div class="form-group">
+				<label class="col-lg-4 control-label">旧密码</label>
+				<div class="col-lg-8">
+					<input type="text" id="oldPassword" class="form-control">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-4 control-label">新密码</label>
+				<div class="col-lg-8">
+					<input type="text" id="newPassword" class="form-control">
+				</div>
+			</div>
+			<input type="text" id="user_id" hidden="hidden" value="${detail.userId}"> 
+			<div><button type="submit" class="button button-glow button-rounded button-highlight" onclick="updateSelPwd()">修改密码</button></div>
+		</div>
+		</div>
+	</div>
+</div>
+<script>
+	function updateSelPwd(){
+		var oldPassword =  $('#oldPassword').val();
+		var newPassword =  $('#newPassword').val();
+		var userId = $('#user_id').val();
+		$.ajax({
+			//async:false,
+			type: "POST",
+			url: '${ctxPath}/accountWallet/updateSelPwd',
+	    	data: {
+	    		oldPassword:oldPassword,
+	    		newPassword:newPassword,
+	    		userId:userId
+	    	},
+			dataType:'json',
+			success: function(data){ 
+				alert(data.msg)
+			}
+		});
+	}
+</script>
+
