@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : mysql
+Source Server         : localhost
 Source Server Version : 50634
 Source Host           : localhost:3306
 Source Database       : hualian
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50634
 File Encoding         : 65001
 
-Date: 2018-05-09 00:02:18
+Date: 2018-05-09 17:57:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,11 +25,13 @@ CREATE TABLE `account_chain_wallet` (
   `chain_code` varchar(50) NOT NULL,
   `account_wallet_id` bigint(40) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of account_chain_wallet
 -- ----------------------------
+INSERT INTO `account_chain_wallet` VALUES ('1', '0xd39dd63d4f29c4a5842342eb8344a745b2865868', 'moac', '1');
+INSERT INTO `account_chain_wallet` VALUES ('2', 'jHwTDv5ZCxFVNcXnSMF5L8boyELjuSbmHY', 'jingtum', '1');
 
 -- ----------------------------
 -- Table structure for account_wallet
@@ -41,11 +43,12 @@ CREATE TABLE `account_wallet` (
   `user_id` varchar(80) NOT NULL,
   `appid` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of account_wallet
 -- ----------------------------
+INSERT INTO `account_wallet` VALUES ('1', 'f7ca929c-9b47-495f-883a-8460c1eb9db4', 'ceshiyonghu2', '993814533992611840');
 
 -- ----------------------------
 -- Table structure for chain_wallet
