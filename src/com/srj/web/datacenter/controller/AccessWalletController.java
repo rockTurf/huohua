@@ -100,6 +100,57 @@ public class AccessWalletController {
 		return "datacenter/accountWallet/account-wallet-detail";
 	}
 	
-	
+	/**
+	 * 重置查询密码
+	 * 
+	 * @param params
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "resetSelPwd", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> resetSelectPwdPage(@RequestParam Map<String, Object> params,Model model){
+		//取得token
+		String accessToken = SysUserUtil.getAccessToken();
+		params.put("accessToken", accessToken);
+		//返回结果
+		Map<String, Object> msg = new HashMap<String, Object>();
+		//发送请求
+		JSONObject data = HualianUtil.resetWalletPassword(params);
+		if(200==(data.getInt("code"))){//返回200代表成功
+			data = (JSONObject) data.get("data");
+			if(data.getBoolean("success")==true){
+				msg.put("data",data.getString("newPwd"));
+				msg.put("success","修改成功！");
+			}
+		}else{
+			msg.put("error", data.get("message"));
+		}
+		return msg;
+	}	
+	/**
+	 * 修改查询密码
+	 * 
+	 * @param params
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "updateSelPwd")
+	public @ResponseBody Map<String, Object> updateSelPwd(@RequestParam Map<String, Object> params){
+		//取得token
+		String accessToken = SysUserUtil.getAccessToken();
+		params.put("accessToken", accessToken);
+		//返回结果
+		Map<String, Object> msg = new HashMap<String, Object>();
+		JSONObject data = HualianUtil.modifyPassword(params);
+		if(200==(data.getInt("code"))){//返回200代表成功
+			data = (JSONObject) data.get("data");
+			if(data.getBoolean("success")==true){
+				msg.put("msg","修改成功！");
+			}
+		}else{
+			msg.put("msg", data.get("message"));
+		}
+		return msg;
+	}
 
 }

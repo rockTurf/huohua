@@ -73,39 +73,6 @@ public class AccessChainWalletController {
 		return "datacenter/accountWallet/account-wallet-update-select-pwd";
 	}
 	
-	/**
-	 * 修改查询密码
-	 * 
-	 * @param params
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "updateSelPwd")
-	public @ResponseBody Map<String, Object> updateSelPwd(@RequestParam Map<String, Object> params){
-		Map<String, Object> msg = new HashMap<String, Object>();
-		JSONObject data = HualianUtil.modifyPassword(params);
-		if(200==(data.getInt("code"))){//返回200代表成功
-			data = (JSONObject) data.get("data");
-			if(data.getBoolean("success")==true){
-				msg.put("msg","修改成功！");
-			}
-		}else{
-			msg.put("msg", data.get("message"));
-		}
-		return msg;
-	}
 	
-	/**
-	 * 跳转重置查询密码页面
-	 * 
-	 * @param params
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "resetSelectPwdPage", method = RequestMethod.POST)
-	public String resetSelectPwdPage(Long id,@RequestParam Map<String, Object> params,Model model){
-		AccountChainWallet acw = accountChainWalletService.getItem(id);
-		model.addAttribute("detail", acw);
-		return "datacenter/accountWallet/account-wallet-update-select-pwd";
-	}
+	
 }
