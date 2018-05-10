@@ -25,7 +25,7 @@ import com.srj.web.util.HualianUtil;
 
 @Controller
 @RequestMapping("accountChainWallet")
-public class AccessChainWalletController {
+public class AccountChainWalletController {
 
 	@Resource
 	private AccountChainWalletService accountChainWalletService;

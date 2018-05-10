@@ -45,17 +45,17 @@
 				<div class="form-group">
 					<label class="col-lg-4 control-label">支付密码</label>
 					<div class="col-lg-8">
-						<input type="text" id="newPayPassword" class="form-control">
+						<input type="text" id="setPayPassword" class="form-control">
 					</div>
 				</div>
 				<div>
-				<input type="button" onclick="updateSelPwd()" value="设置支付密码" class="button button-royal button-rounded button-small">
+				<input type="button" onclick="setPayPwd()" value="设置支付密码" class="button button-royal button-rounded button-small">
 				</div>
 				<div style="padding: 8px"><h3>支付密码修改</h3></div>
 				<div class="form-group">
 					<label class="col-lg-4 control-label">旧支付密码</label>
 					<div class="col-lg-8">
-						<input type="text" id="queryPassword" class="form-control">
+						<input type="text" id="oldPayPassword" class="form-control">
 					</div>
 				</div>
 				<div class="form-group">
@@ -65,8 +65,8 @@
 					</div>
 				</div>
 				<div>
-				<input type="button" onclick="updateSelPwd()" value="修改支付密码" class="button button-glow button-rounded button-raised button-primary button-small">
-				<input type="button" onclick="resetSelPwd()" value="重置支付密码" class="button button-glow button-rounded button-caution button-small">
+				<input type="button" onclick="updatePayPwd()" value="修改支付密码" class="button button-glow button-rounded button-raised button-primary button-small">
+				<input type="button" onclick="resetPayPwd()" value="重置支付密码" class="button button-glow button-rounded button-caution button-small">
 				</div>
 		   </form>
 			</div>
@@ -74,7 +74,7 @@
 	</div>
 </div>
 <script>
-	function updateSelPwd(){
+	function updateSelPwd(){//修改查询密码
 		$.confirm({
 			title : '提示!',
 			content : '确认修改密码吗？',
@@ -110,7 +110,7 @@
 		});
 	}
 	
-	function resetSelPwd(){
+	function resetSelPwd(){//重置查询密码
 		$.confirm({
 			title : '提示!',
 			content : '确认重置密码吗？',
@@ -122,6 +122,117 @@
 						//async:false,
 						type : "POST",
 						url : '${ctxPath}/accountWallet/resetSelPwd',
+						data : {
+							userId : userId,
+							walletAddr : walletAddr
+						},
+						dataType : 'json',
+						success : function(data) {
+							if(undefined!= data.error){
+								$.alert({
+									title : '提示',
+									content : data.error
+								});	 
+							}else{
+								$.alert({
+									title : '提示',
+									content : data.success +'新密码为:'+data.data
+								});	
+							}
+						}
+					});
+				},
+				取消 : function() {
+
+				}
+			}
+		});
+	}
+	
+	function setPayPwd(){//设置支付密码
+		$.confirm({
+			title : '提示!',
+			content : '确认设置支付密码吗？',
+			buttons : {
+				确认 : function() {
+					var walletAddr = $('#wallet_addr').val();
+					var userId = $('#user_id').val();
+					var queryPassword = $('#queryPassword').val();
+					var setPayPassword = $('#setPayPassword').val();
+					$.ajax({
+						//async:false,
+						type : "POST",
+						url : '${ctxPath}/accountWallet/setPayPwd',
+						data : {
+							userId : userId,
+							walletAddr : walletAddr,
+							queryPassword:queryPassword,
+							newPayPassword:setPayPassword
+						},
+						dataType : 'json',
+						success : function(data) {
+							$.alert({
+								title : '提示',
+								content : data.msg
+							});	 
+						}
+					});
+				},
+				取消 : function() {
+
+				}
+			}
+		});
+	}
+	
+	function updatePayPwd(){//修改支付密码
+		$.confirm({
+			title : '提示!',
+			content : '确认修改支付密码吗？',
+			buttons : {
+				确认 : function() {
+					var oldPayPassword = $('#oldPayPassword').val();
+					var newPayPassword = $('#newPayPassword').val();
+					var walletAddr = $('#wallet_addr').val();
+					var userId = $('#user_id').val();
+					$.ajax({
+						//async:false,
+						type : "POST",
+						url : '${ctxPath}/accountWallet/updatePayPwd',
+						data : {
+							oldPayPassword : oldPayPassword,
+							newPayPassword : newPayPassword,
+							userId : userId,
+							walletAddr : walletAddr
+						},
+						dataType : 'json',
+						success : function(data) {
+							$.alert({
+								title : '提示',
+								content : data.msg
+							});	 
+						}
+					});
+				},
+				取消 : function() {
+
+				}
+			}
+		});
+	}
+	
+	function resetPayPwd(){//重置支付密码
+		$.confirm({
+			title : '提示!',
+			content : '确认重置支付密码吗？',
+			buttons : {
+				确认 : function() {
+					var walletAddr = $('#wallet_addr').val();
+					var userId = $('#user_id').val();
+					$.ajax({
+						//async:false,
+						type : "POST",
+						url : '${ctxPath}/accountWallet/resetPayPwd',
 						data : {
 							userId : userId,
 							walletAddr : walletAddr

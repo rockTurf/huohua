@@ -235,7 +235,8 @@ public class HttpRequestUtil {
                     throw new RuntimeException(e);  
                 }  
             }  
-        }  
+        }
+        //System.out.println("url="+urlParam+",param="+sbParams.substring(0, sbParams.length() - 1)+",result="+resultBuffer.toString());
         return resultBuffer.toString();  
     }  
 
