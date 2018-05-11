@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.springframework.stereotype.Controller;
@@ -60,17 +61,43 @@ public class AccountChainWalletController {
 	
 	
 	/**
-	 * 跳转修改查询密码页面
+	 * 跳转金额页
 	 * 
 	 * @param params
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "updateSelectPwdPage", method = RequestMethod.POST)
-	public String updateSelectPwdPage(Long id,@RequestParam Map<String, Object> params,Model model){
-		AccountChainWallet acw = accountChainWalletService.getItem(id);
-		model.addAttribute("detail", acw);
-		return "datacenter/accountWallet/account-wallet-update-select-pwd";
+	@RequestMapping(value = "balances", method = RequestMethod.POST)
+	public String showBalances(Long id,@RequestParam Map<String, Object> params,Model model){
+		SysUser u = SysUserUtil.getSessionLoginUser();
+		AccountChainWallet item = accountChainWalletService.getItem(id);
+		model.addAttribute("item", item);
+		return "datacenter/accountChainWallet/account-chain-wallet-balances";
+	}
+	
+	/**
+	 * 查询余额
+	 * 
+	 * @param params
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "getBalances", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> getBalances(@RequestParam Map<String, Object> params){
+		//取得token
+		String accessToken = SysUserUtil.getAccessToken();
+		params.put("accessToken", accessToken);
+		//返回结果
+		Map<String, Object> msg = new HashMap<String, Object>();
+		//发送请求
+		JSONObject data = HualianUtil.getWalletBalancesInChain(params);
+		if(200==(data.getInt("code"))){//返回200代表成功
+			data = (JSONObject) data.get("data");
+			msg.put("success", data);
+		}else{
+			msg.put("error", data.get("message"));
+		}
+		return msg;
 	}
 	
 	

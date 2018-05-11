@@ -117,7 +117,7 @@ public class AccountWalletController {
 	}
 	
 	/**
-	 * 重置查询密码
+	 * 查询余额
 	 * 
 	 * @param params
 	 * @param model

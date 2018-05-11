@@ -1,0 +1,56 @@
+
+<div class="widget wgreen">
+	<div class="widget-content">
+		<div class="padd">
+		<form class="form-horizontal" role="form">
+			<div class="form-group">
+				<label class="col-lg-4 control-label">公链地址:</label>
+				<div class="col-lg-8">
+					<input type="text" class="form-control" id="addr"
+						value="${item.addr}" readonly="readonly">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-4 control-label">公链编码:</label>
+				<div class="col-lg-8">
+					<input type="text" class="form-control" id="blockChain"
+						value="${item.chainCode}" readonly="readonly">
+				</div>
+			</div>
+			<div style="padding: 8px">
+				<h3>查询余额</h3>
+			</div>
+			<div><input type="button" onclick="getBalances()" value="查询余额" class="button button-glow button-rounded button-raised button-primary button-small"></div>
+			<div id="result" style="padding-top: 20px"></div>
+		</form>
+		</div>
+	</div>
+</div>
+<script>
+function getBalances(){//修改查询密码
+	var blockChain = $('#blockChain').val();
+	var addr = $('#addr').val();
+	$.ajax({
+		type : "POST",
+		url : '${ctxPath}/accountChainWallet/getBalances',
+		data : {
+			blockChain : blockChain,
+			addr : addr
+		},
+		dataType : 'json',
+		success : function(data) {
+			if(undefined!= data.error){
+				$.alert({
+					title : '提示',
+					content : data.error
+				});	 
+			}else{
+				var data = data.success;
+				$("#result").html('');
+				$("#result").append("<h4>余额：" + data.balance + "，货币名称： "+data.currency+"，冻结金额： "+data.freezed+"</h4>");
+			}
+		}
+	});
+}
+</script>
+

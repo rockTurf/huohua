@@ -23,10 +23,15 @@
 				<td>${item.walletAddr!}</td>
 				<td>${item.userId!}</td>
 				<td>
-				<button class="btn btn-xs btn-warning" data-mode="page" data-title="操作"
+				<button class="btn btn-xs btn-warning" data-mode="page" data-title="密码操作"
 							data-url="${ctxPath}/accountWallet/detail"
 							data-data="{id:'${item.id}'}" data-height="85%" data-width="60%">
 				<i class="fa fa-pencil"></i>
+				</button>
+				<button class="btn btn-xs btn-success" data-mode="page" data-title="查询余额"
+							data-url="${ctxPath}/accountWallet/balances"
+							data-data="{id:'${item.id}'}" data-height="65%" data-width="60%">
+				<i class="fa fa-gear"></i>
 				</button>
 				</td>
 			</tr>
