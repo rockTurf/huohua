@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50634
 File Encoding         : 65001
 
-Date: 2018-05-10 22:05:50
+Date: 2018-05-14 07:34:25
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -104,7 +104,7 @@ CREATE TABLE `sys_resource` (
   `url` varchar(255) DEFAULT NULL COMMENT '链接',
   `del_flag` smallint(1) NOT NULL DEFAULT '0' COMMENT '描述',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_resource
@@ -114,10 +114,12 @@ INSERT INTO `sys_resource` VALUES ('2', '用户管理', 'users', '0', '0', '', '
 INSERT INTO `sys_resource` VALUES ('3', '菜单配置', 'gear', '1', '0', 'menu', '0');
 INSERT INTO `sys_resource` VALUES ('4', '账号管理', 'street-view', '2', '0', 'userCenter', '0');
 INSERT INTO `sys_resource` VALUES ('6', '角色管理', null, '2', '0', 'userRole', '0');
-INSERT INTO `sys_resource` VALUES ('7', '钱包管理', 'gear', '0', '0', '', '0');
+INSERT INTO `sys_resource` VALUES ('7', '钱包管理', 'money', '0', '0', '', '0');
 INSERT INTO `sys_resource` VALUES ('8', '企业钱包', '', '7', '0', 'wallet', '0');
 INSERT INTO `sys_resource` VALUES ('9', '用户钱包', null, '7', '0', 'accountWallet', '0');
 INSERT INTO `sys_resource` VALUES ('10', '用户公链钱包', null, '7', '0', 'accountChainWallet', '0');
+INSERT INTO `sys_resource` VALUES ('11', '支付管理', 'street-view', '0', '0', null, '0');
+INSERT INTO `sys_resource` VALUES ('12', '转账', null, '11', '0', 'transfer', '0');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -168,7 +170,7 @@ CREATE TABLE `sys_user` (
   `appsecret` varchar(50) NOT NULL,
   `del_flag` smallint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_user
@@ -181,6 +183,7 @@ INSERT INTO `sys_user` VALUES ('5', 'huohuaceshi4', '火花测试4', '', '993814
 INSERT INTO `sys_user` VALUES ('6', 'hualianceshi5', '火花测试5', '', '994241218256830464', '4242d640-c16a-49c4-91e3-d022cc37dd8d', '0');
 INSERT INTO `sys_user` VALUES ('7', 'huohuaceshi6', '火花测试6', '', '994242373624004608', '8adb227a-e79f-4bf3-af9c-17068e374653', '0');
 INSERT INTO `sys_user` VALUES ('8', 'huohuaceshi7', '火花测试7', '', '994243083598036992', '3bc14f54-004a-422b-86f6-eee4fd4a50b9', '0');
+INSERT INTO `sys_user` VALUES ('9', '8082app', '8082注册应用', '', '995127615658393600', '1e7acfff-43c6-463d-8329-b93f6d1e7e48', '0');
 
 -- ----------------------------
 -- Table structure for sys_user_role
@@ -199,6 +202,32 @@ CREATE TABLE `sys_user_role` (
 
 -- ----------------------------
 -- Records of sys_user_role
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for transfer
+-- ----------------------------
+DROP TABLE IF EXISTS `transfer`;
+CREATE TABLE `transfer` (
+  `id` bigint(50) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(40) DEFAULT NULL,
+  `token_code` varchar(20) DEFAULT NULL,
+  `src_wallet_addr` varchar(40) DEFAULT NULL,
+  `dest_wallet_addr` varchar(40) DEFAULT NULL,
+  `amount` varchar(30) DEFAULT NULL,
+  `memo` varchar(30) DEFAULT NULL,
+  `gas_fee` varchar(30) DEFAULT NULL,
+  `freezed` varchar(30) DEFAULT NULL,
+  `hash` varchar(50) DEFAULT NULL,
+  `create_time` varchar(40) DEFAULT NULL,
+  `transfer_time` varchar(40) DEFAULT NULL,
+  `issuer` varchar(30) DEFAULT NULL,
+  `status` smallint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of transfer
 -- ----------------------------
 
 -- ----------------------------
