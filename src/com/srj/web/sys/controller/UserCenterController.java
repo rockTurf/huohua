@@ -1,5 +1,6 @@
 package com.srj.web.sys.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
+import com.srj.common.base.PasswordEncoder;
 import com.srj.common.constant.Constant;
 import com.srj.common.utils.SysUserUtil;
 import com.srj.web.sys.model.SysResource;
@@ -27,6 +29,7 @@ import com.srj.web.sys.model.SysUser;
 import com.srj.web.sys.service.SysResourceService;
 import com.srj.web.sys.service.SysRoleService;
 import com.srj.web.sys.service.SysUserService;
+import com.srj.web.util.DateUtils;
 import com.srj.web.util.HualianUtil;
 
 @Controller
@@ -81,12 +84,17 @@ public class UserCenterController {
 			JSONObject data = HualianUtil.getInit(params);
 			if(200==(data.getInt("code"))){//返回200代表成功
 				data = (JSONObject) data.get("data");
+				//密码加密（md5,username为盐）
+				String password = PasswordEncoder.Encoding((String) params.get("password"), (String) params.get("username"));
 				//存入库
 				SysUser u = new SysUser();
-				u.setAppcode((String) params.get("appcode"));
-				u.setAppname((String) params.get("appname"));
+				u.setUsername((String) params.get("username"));
+				u.setPassword(password);
+				u.setRealname((String) params.get("realname"));
 				u.setCburl((String) params.get("cburl"));
 				u.setAppid(data.optString("appid"));
+				u.setUser_type((String) params.get("userType"));
+				u.setCreate_time(DateUtils.formatDateTime(new Date()));
 				u.setAppsecret(data.getString("appsecret"));
 				u.setDelFlag(Constant.DEL_FLAG_NORMAL);
 				int count = sysUserService.addUser(u);

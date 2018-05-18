@@ -140,7 +140,7 @@ public class LogUtils {
     protected static String getUsername() {
     	SysUser sysUser = SysUserUtil.getSessionLoginUser();
     	if(sysUser == null) return "未登录";
-        return sysUser.getAppname();
+        return sysUser.getRealname();
     }
 
     public static Logger getAccessLog() {

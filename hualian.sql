@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50634
 File Encoding         : 65001
 
-Date: 2018-05-14 07:34:25
+Date: 2018-05-18 08:44:28
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -163,11 +163,14 @@ CREATE TABLE `sys_role_resource` (
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
-  `appcode` varchar(50) NOT NULL,
-  `appname` varchar(100) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(40) DEFAULT NULL,
+  `realname` varchar(100) DEFAULT NULL,
   `cburl` varchar(40) DEFAULT NULL,
   `appid` varchar(40) NOT NULL,
   `appsecret` varchar(50) NOT NULL,
+  `user_type` varchar(20) DEFAULT NULL,
+  `create_time` varchar(40) DEFAULT NULL,
   `del_flag` smallint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
@@ -175,15 +178,15 @@ CREATE TABLE `sys_user` (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', 'testhualiansrj', '火花系统测试', '', '992562277334908928', '3e69bdc4-d605-4108-bd66-a2b57a89f803', '0');
-INSERT INTO `sys_user` VALUES ('2', 'newhuohualink', '新测试srj', '', '993645780306755584', '4a1fc636-e411-49f7-ab5d-c72330e732e5', '0');
-INSERT INTO `sys_user` VALUES ('3', 'newhuohualink2', '新火花测试2', '', '993648659088277504', 'e3b5b616-248e-49d6-8471-485e83284471', '0');
-INSERT INTO `sys_user` VALUES ('4', 'huohuatest3', '火花测试3', '', '993810746548682752', '2f504a44-91d2-4122-a6f0-b9b0c93c6a9e', '0');
-INSERT INTO `sys_user` VALUES ('5', 'huohuaceshi4', '火花测试4', '', '993814533992611840', '080c5b83-3988-4a7b-8685-9645df6258d1', '0');
-INSERT INTO `sys_user` VALUES ('6', 'hualianceshi5', '火花测试5', '', '994241218256830464', '4242d640-c16a-49c4-91e3-d022cc37dd8d', '0');
-INSERT INTO `sys_user` VALUES ('7', 'huohuaceshi6', '火花测试6', '', '994242373624004608', '8adb227a-e79f-4bf3-af9c-17068e374653', '0');
-INSERT INTO `sys_user` VALUES ('8', 'huohuaceshi7', '火花测试7', '', '994243083598036992', '3bc14f54-004a-422b-86f6-eee4fd4a50b9', '0');
-INSERT INTO `sys_user` VALUES ('9', '8082app', '8082注册应用', '', '995127615658393600', '1e7acfff-43c6-463d-8329-b93f6d1e7e48', '0');
+INSERT INTO `sys_user` VALUES ('1', 'testhualiansrj', null, '火花系统测试', '', '992562277334908928', '3e69bdc4-d605-4108-bd66-a2b57a89f803', null, null, '0');
+INSERT INTO `sys_user` VALUES ('2', 'newhuohualink', null, '新测试srj', '', '993645780306755584', '4a1fc636-e411-49f7-ab5d-c72330e732e5', null, null, '0');
+INSERT INTO `sys_user` VALUES ('3', 'newhuohualink2', null, '新火花测试2', '', '993648659088277504', 'e3b5b616-248e-49d6-8471-485e83284471', null, null, '0');
+INSERT INTO `sys_user` VALUES ('4', 'huohuatest3', null, '火花测试3', '', '993810746548682752', '2f504a44-91d2-4122-a6f0-b9b0c93c6a9e', null, null, '0');
+INSERT INTO `sys_user` VALUES ('5', 'huohuaceshi4', null, '火花测试4', '', '993814533992611840', '080c5b83-3988-4a7b-8685-9645df6258d1', null, null, '0');
+INSERT INTO `sys_user` VALUES ('6', 'hualianceshi5', null, '火花测试5', '', '994241218256830464', '4242d640-c16a-49c4-91e3-d022cc37dd8d', null, null, '0');
+INSERT INTO `sys_user` VALUES ('7', 'huohuaceshi6', null, '火花测试6', '', '994242373624004608', '8adb227a-e79f-4bf3-af9c-17068e374653', null, null, '0');
+INSERT INTO `sys_user` VALUES ('8', 'huohuaceshi7', null, '火花测试7', '', '994243083598036992', '3bc14f54-004a-422b-86f6-eee4fd4a50b9', null, null, '0');
+INSERT INTO `sys_user` VALUES ('9', '8082app', null, '8082注册应用', '', '995127615658393600', '1e7acfff-43c6-463d-8329-b93f6d1e7e48', null, null, '0');
 
 -- ----------------------------
 -- Table structure for sys_user_role

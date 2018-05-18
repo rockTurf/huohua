@@ -31,7 +31,7 @@
 					<!-- Widget starts -->
 					<div class="widget wred">
 						<div class="widget-head">
-							<i class="fa fa-lock"></i> 注册
+							<i class="fa fa-lock"></i> 企业注册
 						</div>
 						<div class="widget-content">
 							<div class="padd">
@@ -39,20 +39,34 @@
 								<form class="form-horizontal">
 									<!-- Registration form starts -->
 									<div class="form-group">
-										<label class="control-label col-lg-3" for="appcode">系统编号</label>
+										<label class="control-label col-lg-3" for="username">系统编号</label>
 										<div class="col-lg-9">
 											<input type="text" class="form-control" datatype="*"
-												nullmsg="此项必填！" id="appcode">
+												nullmsg="此项必填！" id="username">
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label col-lg-3" for="appname">系统名称</label>
+										<label class="control-label col-lg-3" for="realname">系统名称</label>
 										<div class="col-lg-9">
 											<input type="text" class="form-control" datatype="*"
-												nullmsg="此项必填！" id="appname">
+												nullmsg="此项必填！" id="realname">
 										</div>
 									</div>
-									<!-- Email -->
+									<div class="form-group">
+										<label class="control-label col-lg-3" for="password">登录密码</label>
+										<div class="col-lg-9">
+											<input type="password" class="form-control" datatype="*"
+												nullmsg="此项必填！" id="password">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-lg-3" for="confirm">确认密码</label>
+										<div class="col-lg-9">
+											<input type="password" class="form-control" datatype="*"
+												nullmsg="此项必填！" id="confirm">
+										</div>
+									</div>
+									<!-- 回调地址 -->
 									<div class="form-group">
 										<label class="control-label col-lg-3" for="cburl">回调地址（可选）</label>
 										<div class="col-lg-9">
@@ -85,16 +99,17 @@
 //服务器校验
 function register(){
 	if(check()){
-		appcode = $('#appcode').val();
-		appname = $('#appname').val();
+		username = $('#username').val();
+		realname = $('#realname').val();
 		cburl = $('#cburl').val();
 		$.ajax({
 			//async:false,
 			type: "POST",
 			url: '${ctxPath}/userCenter/userRegist',
 	    	data: {
-	    		appcode:appcode,
-	    		appname:appname,
+	    		realname:realname,
+	    		username:username,
+	    		password:password,
 	    		cburl:cburl
 	    	},
 			dataType:'json',
@@ -129,38 +144,27 @@ function register(){
 }
 	//客户端校验
 	function check() {
-		if ($("#appcode").val() == "") {
-			$("#appcode").tips({
+		if ($("#username").val() == "") {
+			$("#username").tips({
 				side : 2,
 				msg : '编号不得为空',
 				bg : '#4F4F4F',
 				time : 3
 			});
-			$("#name").focus();
+			$("#username").focus();
 			return false;
 		} else {
-			$("#name").val(jQuery.trim($('#name').val()));
+			$("#username").val(jQuery.trim($('#username').val()));
 		}
-		if ($("#email").val() == "") {
-			$("#email").tips({
+		if ($("#realname").val() == "") {
+			$("#realname").tips({
 				side : 2,
-				msg : '邮箱不得为空',
+				msg : '名称不得为空',
 				bg : '#4F4F4F',
 				time : 3
 			});
 
-			$("#email").focus();
-			return false;
-		}
-		if ($("#username").val() == "") {
-			$("#username").tips({
-				side : 2,
-				msg : '用户名不得为空',
-				bg : '#4F4F4F',
-				time : 3
-			});
-
-			$("#username").focus();
+			$("#realname").focus();
 			return false;
 		}
 		if ($("#password").val() == "") {

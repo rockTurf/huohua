@@ -7,23 +7,51 @@ import com.srj.common.constant.Constant;
 
 public class SysUser  extends BaseEntity implements Serializable{
 	
-	private String appcode;
-	private String appname;
-	private String cburl;
-	private String appid;
-	private String appsecret;
-	private String delFlag;
-	public String getAppcode() {
-		return this.getString("appcode");
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private String username;//用户名
+	private String password;//密码
+	private String realname;//应用名或用户真实姓名
+	private String cburl;//回调地址
+	private String appid;//应用Id
+	private String appsecret;//应用秘钥
+	private String user_type;//账号性质（企业，用户）
+	private String create_time;//创建时间
+	private String delFlag;//删除标识
+	
+	public String getUsername() {
+		return this.getString("username");
 	}
-	public void setAppcode(String appcode) {
-		this.set("appcode",appcode);
+	public void setUsername(String username) {
+		this.set("username",username);
 	}
-	public String getAppname() {
-		return this.getString("appname");
+	public String getPassword() {
+		return this.getString("password");
 	}
-	public void setAppname(String appname) {
-		this.set("appname",appname);
+	public void setPassword(String password) {
+		this.set("password",password);
+	}
+	public String getUser_type() {
+		return this.getString("userType");
+	}
+	public void setUser_type(String user_type) {
+		this.set("user_type",user_type);
+	}
+	public String getCreate_time() {
+		return this.getString("createTime");
+	}
+	public void setCreate_time(String create_time) {
+		this.set("create_time",create_time);
+	}
+	
+	public String getRealname() {
+		return this.getString("realname");
+	}
+	public void setRealname(String realname) {
+		this.set("realname",realname);
 	}
 	public String getCburl() {
 		return this.getString("cburl");
@@ -48,5 +76,9 @@ public class SysUser  extends BaseEntity implements Serializable{
 	}
 	public void setDelFlag(String delFlag) {
 		this.set("delFlag",delFlag);
+	}
+	
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 }

@@ -37,7 +37,7 @@ public class SysFileService {
 					record.setFileurl(array[1]);
 					record.setTable_id(table_id);
 					record.setFlag(flag);
-					record.setCreate_name(u.getAppname());
+					record.setCreate_name(u.getRealname());
 					record.setCreate_time(DateUtils.formatDateTime(new Date()));
 					listrecord.add(record);
 				}

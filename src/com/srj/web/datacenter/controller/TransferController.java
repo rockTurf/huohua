@@ -16,9 +16,9 @@ import com.srj.web.sys.model.SysUser;
 @RequestMapping("transfer")
 public class TransferController {
 
-	@Resource
+	/*@Resource
 	private TransferService transferService;
-	
+	*/
 	/**
 	 * 跳转到页面
 	 */

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.srj.common.utils.SysConstant;
 import com.srj.common.utils.SysUserUtil;
+import com.srj.common.base.PasswordEncoder;
 import com.srj.common.constant.Constant;
 import com.srj.web.sys.model.SysUser;
 import com.srj.web.sys.service.SysResourceService;
@@ -56,8 +57,12 @@ public class LoginController {
 	
 	@RequestMapping(value = "/loginCheck")
 	public @ResponseBody Map<String, Object> checkLogin(@RequestParam Map<String,Object> params,Model model,HttpServletRequest request,HttpServletResponse response){
-		String appid = params.get("appid").toString();
-		String appsecret = params.get("appsecret").toString();
+		String username = params.get("username").toString();
+		String password = params.get("password").toString();
+		//密码加密
+		password = PasswordEncoder.Encoding(password, username);
+		params.put("password", password);
+		
 		Map<String, Object> msg = new HashMap<String, Object>();
 		SysUser user= sysUserService.AccessLogin(params);
 		//数据库取到对应的用户信息不为空 判断
