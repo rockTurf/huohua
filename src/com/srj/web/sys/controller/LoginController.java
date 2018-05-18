@@ -68,7 +68,12 @@ public class LoginController {
 		//数据库取到对应的用户信息不为空 判断
 		if(user!=null){
 			//调用校验接口
-			JSONObject data = HualianUtil.getAccess(params);
+			Map<String, Object> map = new HashMap<String, Object>();
+			String appid = user.getAppid();
+			String appsecret = user.getAppsecret();
+			map.put("appid", appid);
+			map.put("appsecret", appsecret);
+			JSONObject data = HualianUtil.getAccess(map);
 			if(200==(data.getInt("code"))){//返回200代表成功
 				data = (JSONObject) data.get("data");
 				String token = data.getString("accessToken");

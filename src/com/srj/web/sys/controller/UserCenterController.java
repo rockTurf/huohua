@@ -81,6 +81,11 @@ public class UserCenterController {
 		//数据库取到对应的用户信息不为空 判断
 		if(user==null){
 			//调用注册接口
+			String appcode = (String)params.get("username");
+			String appname = (String)params.get("realname");
+			params.put("appcode", appcode);
+			params.put("appname", appname);
+			
 			JSONObject data = HualianUtil.getInit(params);
 			if(200==(data.getInt("code"))){//返回200代表成功
 				data = (JSONObject) data.get("data");
@@ -93,7 +98,7 @@ public class UserCenterController {
 				u.setRealname((String) params.get("realname"));
 				u.setCburl((String) params.get("cburl"));
 				u.setAppid(data.optString("appid"));
-				u.setUser_type((String) params.get("userType"));
+				u.setUser_type(Constant.SYS_USER_TYPE_COMPANY);
 				u.setCreate_time(DateUtils.formatDateTime(new Date()));
 				u.setAppsecret(data.getString("appsecret"));
 				u.setDelFlag(Constant.DEL_FLAG_NORMAL);

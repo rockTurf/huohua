@@ -79,4 +79,15 @@ public class Constant {
 	 */
 	public static final String STOCK_TRADE_PROGRESS = "stock_trade_progress";//单日交易批量文件上传进度条
 	
+	/**
+	 *用户类型（企业，用户）
+	 */
+	public static final String SYS_USER_TYPE_COMPANY = "company";//企业
+	public static final String SYS_USER_TYPE_PERSONAL = "personal";//用户
+	
+	/**
+	 *新用户密码
+	 */
+	public static final String NEW_USER_LOGIN_PASSWORD = "123456";//新用户登录密码123456
+	public static final String NEW_USER_SELECT_PASSWORD = "123456";//新用户查询密码123456
 }

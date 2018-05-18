@@ -101,6 +101,7 @@ function register(){
 	if(check()){
 		username = $('#username').val();
 		realname = $('#realname').val();
+		password = $('#password').val();
 		cburl = $('#cburl').val();
 		$.ajax({
 			//async:false,
@@ -116,9 +117,9 @@ function register(){
 			cache: true,
 			success: function(data){
 				if(undefined != data.error){
-						$t = $("#appcode");
+						$t = $("#username");
 						if(data.error.indexOf('用户名已存在')!=-1){
-							$t =$("#appcode");
+							$t =$("#username");
 						}
 						$t.tips({
 							side : 2,
@@ -144,7 +145,7 @@ function register(){
 }
 	//客户端校验
 	function check() {
-		if ($("#username").val() == "") {
+		/* if ($("#username").val() == "") {
 			$("#username").tips({
 				side : 2,
 				msg : '编号不得为空',
@@ -189,7 +190,7 @@ function register(){
 
 			$("#confirm").focus();
 			return false;
-		}
+		} */
 		return true;
 	}
 </script>

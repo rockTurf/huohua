@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : mysql
+Source Server         : localhost
 Source Server Version : 50634
 Source Host           : localhost:3306
 Source Database       : hualian
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50634
 File Encoding         : 65001
 
-Date: 2018-05-18 08:44:28
+Date: 2018-05-18 16:03:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -173,7 +173,7 @@ CREATE TABLE `sys_user` (
   `create_time` varchar(40) DEFAULT NULL,
   `del_flag` smallint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_user
@@ -187,6 +187,7 @@ INSERT INTO `sys_user` VALUES ('6', 'hualianceshi5', null, '火花测试5', '', 
 INSERT INTO `sys_user` VALUES ('7', 'huohuaceshi6', null, '火花测试6', '', '994242373624004608', '8adb227a-e79f-4bf3-af9c-17068e374653', null, null, '0');
 INSERT INTO `sys_user` VALUES ('8', 'huohuaceshi7', null, '火花测试7', '', '994243083598036992', '3bc14f54-004a-422b-86f6-eee4fd4a50b9', null, null, '0');
 INSERT INTO `sys_user` VALUES ('9', '8082app', null, '8082注册应用', '', '995127615658393600', '1e7acfff-43c6-463d-8329-b93f6d1e7e48', null, null, '0');
+INSERT INTO `sys_user` VALUES ('10', 'huohuaceshi8', '3a4c6b3a9762d2596c48aac39685be38', '火花测试8', '', '997305836139184128', '47eb7001-ec76-4415-9f91-680b50a8bfc8', 'company', '2018-05-18 10:40:15', '0');
 
 -- ----------------------------
 -- Table structure for sys_user_role

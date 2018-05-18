@@ -43,16 +43,23 @@
                   <form class="form-horizontal">
                     <!-- Email -->
                     <div class="form-group">
-                      <label class="control-label col-lg-3" for="appid">应用id</label>
+                      <label class="control-label col-lg-3" for="username">账号名</label>
                       <div class="col-lg-9">
-                        <input type="text" class="form-control" id="appid" placeholder="请输入应用id">
+                        <input type="text" class="form-control" id="username" placeholder="请输入应用id">
                       </div>
                     </div>
                     <!-- Password -->
                     <div class="form-group">
-                      <label class="control-label col-lg-3" for="appsecret">秘钥</label>
+                      <label class="control-label col-lg-3" for="password">密码</label>
                       <div class="col-lg-9">
-                        <input type="password" class="form-control" id="appsecret" placeholder="请输入秘钥">
+                        <input type="password" class="form-control" id="password" placeholder="请输入秘钥">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-lg-3" for="userType">用户类型</label>
+                      <div class="col-lg-9">
+                         	企业<input type="radio" name="userType" value="company" checked="checked"/>  
+						            用户<input type="radio" name="userType" value="personal"/>  
                       </div>
                     </div>
                     <!-- Remember me checkbox and sign in button -->
@@ -75,7 +82,7 @@
 </body>
 <script type="text/javascript">
 $(function(){
-	$("#appid,#appsecret").keydown(function(e){
+	$("#username,#password").keydown(function(e){
 		if(e.keyCode==13){
 			severCheck();
 		}
@@ -84,20 +91,22 @@ $(function(){
 //服务器校验
 function severCheck(){
 	if(check()){
-		appid = $('#appid').val();
-		appsecret = $('#appsecret').val();
+		username = $('#username').val();
+		password = $('#password').val();
+		userType = $("input[name='userType']:checked").val();//获取选中项的值
 		$.ajax({
 			//async:false,
 			type: "POST",
 			url: '${ctxPath}/loginCheck',
 	    	data: {
-	    		appid:appid,
-	    		appsecret:appsecret,
+	    		username:username,
+	    		password:password,
+	    		userType:userType
 	    	},
 			dataType:'json',
 			success: function(data){ 
 				 if(undefined != data.error){
-						$t = $("#appid");
+						$t = $("#username");
 						$t.tips({
 							side : 2,
 							msg : data.error,
@@ -115,27 +124,27 @@ function severCheck(){
 }
 //客户端校验
 function check() {
-	if ($("#inputUserName").val() == "") {
-		$("#inputUserName").tips({
+	if ($("#username").val() == "") {
+		$("#username").tips({
 			side : 2,
 			msg : '用户名不得为空',
 			bg : '#4F4F4F',
 			time : 3
 		});
-		$("#inputUserName").focus();
+		$("#username").focus();
 		return false;
 	}else {
-		$("#inputUserName").val(jQuery.trim($('#inputUserName').val()));
+		$("#username").val(jQuery.trim($('#username').val()));
 	}
-	if ($("#inputPassword").val() == "") {
-		$("#inputPassword").tips({
+	if ($("#password").val() == "") {
+		$("#password").tips({
 			side : 2,
 			msg : '密码不得为空',
 			bg : '#4F4F4F',
 			time : 3
 		});
 
-		$("#inputPassword").focus();
+		$("#password").focus();
 		return false;
 	}
 	return true;

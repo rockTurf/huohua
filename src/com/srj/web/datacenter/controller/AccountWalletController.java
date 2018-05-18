@@ -64,8 +64,7 @@ public class AccountWalletController {
 		SysUser u = (SysUser)SysUserUtil.getSessionLoginUser();
 		//封装
 		params.put("accessToken",accessToken);
-		params.put("appid", u.getAppid());
-		int count = accountWalletService.addAccountwallet(params);
+		int count = accountWalletService.addAccountwallet(params,u);
 		return count;
 	}
 	
